@@ -1,0 +1,15 @@
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# PyCharm 本地配置
+.idea/workspace.xml
+.idea/shelf/
