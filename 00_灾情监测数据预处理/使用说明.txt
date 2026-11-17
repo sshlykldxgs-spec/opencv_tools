@@ -1,0 +1,11 @@
+版本 3.1：健壮性 + 异常处理版（python 脚本.py --version 查看）
+流程：
+ ① python 标注前-素材整理.py --in 原始素材 --out pre_out [--mode scene] [--batch-size 200] [--workers 4]
+ ② 导入标注工具标注
+ ③ python 标注后-数据集生成.py --img pre_out/images --ann 标注 --format yolo --classes classes.txt --manifest pre_out/group_manifest.csv --check-only   （先看 xxx_check/issues.csv）
+    去掉 --check-only，加 --out prep --workers 4 正式生成（和 check-only 可用同一个 --out）
+ ④ prep 文件夹整个拷到 Windows 训练
+退出码：0 成功 | 2 预期内的错误（配置/输入/输出，屏幕上有原因和建议）| 130 被中断 | 1 未预料的错误（会写 <out>_crash.log，把它发给我）
+安全性：结果先写到 <out>.partial，成功后才替换 <out>；失败/中断不会破坏已有结果。
+回归测试：pip install pytest；在本文件夹运行 python -m pytest tests -q （25 项，约 1 分钟）
+三个场景脚本与"标注后"是同一套核心，只是 CFG 默认值不同。
